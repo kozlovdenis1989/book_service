@@ -2,32 +2,32 @@
 
 Приложение на FastAPI для управления бронированиями.
 
+│  
 ├── app/                     # Папка с приложением  
-│   ├── __init__.py         # Инициализационный файл  
-│   ├── db.py                # Работа с БД  
+│   ├── __init__.py  
+│   ├── db.py                # Работа с бд  
 │   ├── main.py              # Основной файл с FastAPI приложением  
-│   ├── models.py            # Модели данных  
-│   ├── schemas.py           # Схемы для валидации данных  
+│   ├── models.py              # Модели данных  
+│   ├── schemas.py             # Схемы для валидации данных  
 │   ├── services/            # Логика работы с данными  
 │   └── routers/             # Роутеры для обработки запросов  
 │  
-├── alembic/                 # Папка с миграциями  
-│   ├── versions/            # Здесь будут храниться миграции  
+├── alembic/                   
+│   ├── versions/            # Папка с  миграциями  
 │   └── env.py               # Конфигурации Alembic  
 │  
 ├── alembic.ini              # Файл конфигурации Alembic  
-├── start.sh                 # Скрипт для запуска и миграций в Docker  
-├── Dockerfile               # Docker файл  
-├── docker-compose.yml       # Docker Compose  
-├── .env                     # Файл с переменными окружения  
+├── start.sh                 #  Скрипт для запуска и миграций в DOker  
+│── Dockerfile               #  Docker файл  
+│── docker-compose.yml       #  Docker compose  
+│── .env                     #  Файл с переменными окружения  
 │  
 ├── tests/                   # Тесты  
-│   ├── test_tables.py       # Тесты для работы с таблицами  
-│   └── test_reservation.py   # Тесты для работы с резервированием  
-│  
+│   │  
+│   ├── test_tables.py  
+│   └── test_reservation.py  
+
 └── requirements.txt         # Список зависимостей  
-```uirements.txt         # Список зависимостей  
-```
 
 ## Запуск из виртуальной среды
 
