@@ -1,0 +1,22 @@
+services:
+  web:
+    build: .  #где находится Dockerfile
+    volumes:
+      - ./app:/app/app 
+    ports:
+      - "8000:8000"  # Пробрасываем порт
+    depends_on:
+      - db
+    env_file:
+        - .env
+
+  db:
+    image: postgres:alpine  
+    restart: always
+    env_file:
+        - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Сохраняем данные между запусками
+
+volumes:
+  postgres_data:
