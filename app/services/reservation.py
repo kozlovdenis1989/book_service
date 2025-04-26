@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
 from app import models, schemas
-from app.exceptions import TableNotFound, TimeSlotTaken, ReservationNotFound
+from app.exceptions import DeskNotFound, TimeSlotTaken, ReservationNotFound
 from datetime import timedelta
+from sqlalchemy import text
 
 class ReservationService:
     def __init__(self, db: Session):
@@ -11,16 +12,19 @@ class ReservationService:
         if reservation.duration_minutes < 1:
             reservation.duration_minutes = 1
 
-        db_table = self.db.query(models.Table).filter(models.Table.id == reservation.table_id).first()
-        if db_table is None:
-            raise TableNotFound()  
+        db_desk = self.db.query(models.Desk).filter(models.Desk.id == reservation.desk_id).first()
+        if db_desk is None:
+            raise DeskNotFound()  
 
         end_time = reservation.reservation_time + timedelta(minutes=reservation.duration_minutes)
+
         conflicting_reservations = self.db.query(models.Reservation).filter(
-            models.Reservation.table_id == reservation.table_id,
+            models.Reservation.desk_id == reservation.desk_id,
             models.Reservation.reservation_time < end_time,
-            (models.Reservation.reservation_time + timedelta(minutes=reservation.duration_minutes)) > reservation.reservation_time
-        ).all()
+            text(
+                "reservations.reservation_time + (reservations.duration_minutes || ' minutes')::interval > :reservation_time"
+            )
+        ).params(reservation_time=reservation.reservation_time).all()
 
         if conflicting_reservations:
             raise TimeSlotTaken()

@@ -1,10 +1,10 @@
-class TableNotFound(Exception):
-    def __init__(self, message="Table not found"):
+class DeskNotFound(Exception):
+    def __init__(self, message="Desk not found"):
         super().__init__(message)
         self.message = message
 
-class TableAlreadyExists(Exception):
-    def __init__(self, message="A table with this name or location already exists"):
+class DeskAlreadyExists(Exception):
+    def __init__(self, message="A desk with this name or location already exists"):
         super().__init__(message)
         self.message = message
 

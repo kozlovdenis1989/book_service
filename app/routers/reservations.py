@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app import db, schemas
 from app.services.reservation import ReservationService
-from app.exceptions import TableNotFound, TimeSlotTaken, ReservationNotFound
+from app.exceptions import DeskNotFound, TimeSlotTaken, ReservationNotFound
 
 router = APIRouter()
 
@@ -12,8 +12,8 @@ def create_reservation(reservation: schemas.ReservationCreate, db: Session = Dep
     try:
         created_reservation = reservation_service.create_reservation(reservation)
         return created_reservation
-    except (TableNotFound, TimeSlotTaken) as e:
-        raise HTTPException(status_code=404 if isinstance(e, TableNotFound) else 400, detail=e.message)
+    except (DeskNotFound, TimeSlotTaken) as e:
+        raise HTTPException(status_code=404 if isinstance(e, DeskNotFound) else 400, detail=e.message)
 
 @router.get("/", response_model=list[schemas.ReservationResponse], summary="Получение всех броней", description="Возвращает список всех броней в системе.")
 def get_reservations(db: Session = Depends(db.get_db)):

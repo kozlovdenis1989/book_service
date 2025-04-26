@@ -6,22 +6,22 @@ import random
 client = TestClient(app)
 
 @pytest.fixture
-def create_table():
+def create_desk():
     """Создает тестовый столик для использования в тестах бронирования."""
-    table_data = {
-        "name": "Test Table " + str(random.randint(1, 100)),
+    desk_data = {
+        "name": "Test Desk " + str(random.randint(1, 100)),
         "seats": 4,
         "location": "Test Location " + str(random.randint(1, 100)),
     }
-    response = client.post("/tables/", json=table_data)
+    response = client.post("/desks/", json=desk_data)
     return response.json()
 
 @pytest.fixture
-def create_reservation_data(create_table):
+def create_reservation_data(create_desk):
     """Дает данные для теста создания резервирования."""
     return {
         "customer_name": "John Doe",
-        "table_id": create_table["id"],
+        "desk_id": create_desk["id"],
         "reservation_time": "2023-12-01T12:00:00",
         "duration_minutes": 2,
     }
@@ -30,7 +30,7 @@ def test_create_reservation(create_reservation_data):
     response = client.post("/reservations/", json=create_reservation_data)
     assert response.status_code == 200
     assert response.json()["customer_name"] == create_reservation_data["customer_name"]
-    assert response.json()["table_id"] == create_reservation_data["table_id"]
+    assert response.json()["desk_id"] == create_reservation_data["desk_id"]
 
 def test_create_reservation_conflict(create_reservation_data):
     # Создаем первую резерву

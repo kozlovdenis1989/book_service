@@ -1,10 +1,11 @@
 services:
   web:
-    build: .  #где находится Dockerfile
+    build: . 
     volumes:
       - ./app:/app/app 
+    command: /bin/sh -c "alembic upgrade head || { echo 'Migration failed'; exit 1; } && uvicorn app.main:app --host 0.0.0.0 --port 8000"
     ports:
-      - "8000:8000"  # Пробрасываем порт
+      - "8000:8000" 
     depends_on:
       - db
     env_file:
@@ -16,7 +17,7 @@ services:
     env_file:
         - .env
     volumes:
-      - postgres_data:/var/lib/postgresql/data  # Сохраняем данные между запусками
+      - postgres_data:/var/lib/postgresql/data  
 
 volumes:
   postgres_data:

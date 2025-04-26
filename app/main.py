@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routers import tables, reservations
+from app.routers import desks, reservations
 
 app = FastAPI(
     title="Сервис бронирования столиков",
@@ -7,5 +7,5 @@ app = FastAPI(
     version="1.0.0",
 )
 
-app.include_router(tables.router, prefix="/tables", tags=["Tables"])
+app.include_router(desks.router, prefix="/desks", tags=["Desks"])
 app.include_router(reservations.router, prefix="/reservations", tags=["Reservations"])
