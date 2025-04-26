@@ -9,8 +9,7 @@ class DeskCreate(BaseModel):
 class DeskResponse(DeskCreate):
     id: int = Field(..., description="Идентификатор столика")
 
-    class Config(ConfigDict):
-        from_attributes = True  
+    model_config = ConfigDict(from_attributes=True) 
 
 class ReservationCreate(BaseModel):
     customer_name: str = Field(..., description="Имя клиента")
@@ -21,5 +20,4 @@ class ReservationCreate(BaseModel):
 class ReservationResponse(ReservationCreate):
     id: int = Field(..., description="Идентификатор брони")
 
-    class Config(ConfigDict):
-        from_attributes = True  
+    model_config = ConfigDict(from_attributes=True)

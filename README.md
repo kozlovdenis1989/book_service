@@ -37,10 +37,7 @@
 pip install -r requirements.txt
 ```
 
-Измените настройки подключения к своей базе Postgres в файлах db.py и alembic.ini
-
-
-
+Измените настройки подключения к своей локальной базе Postgres в файлах db.py и alembic.ini.
 
 
 
@@ -63,6 +60,12 @@ pip install -r requirements.txt
 
 2. **Остановка контейнеров**:
 
+   Чтобы остановить контейнеры:
+
+   ```bash
+   docker-compose stop
+   ```
+
    Чтобы остановить и удалить контейнеры, выполните:
 
    ```bash
@@ -84,12 +87,29 @@ http://localhost:8000/docs
 - При первом запуске Alembic выполнит миграции и создаст необходимые таблицы в базе данных.
 - Если вы изменили настройки подключения к базе данных в `docker-compose.yml` или `alembic.ini`, убедитесь, что они совпадают.
 
-## Запуск тестов
+## Запуск тестов в docker
+
+запустите docker-compose с флагом -d
+
+```bash
+docker-compose up -d
+```
+выведите список процессов 
+
+```bash
+docker ps
+```
+найдите имя запущеного процесса приложения (образ change-web) и выполниет команду для запуска оболочки
+
+```bash
+docker exec -it <имя процесса> /bin/bash
+```
 
 Для проверки функциональности приложения выполните:
 
 ```bash
-pytest /tests/test_....py
+pytest tests/test_desks.py
+pytest tests/test_reservation.py
 ```
 
 ## Стек технологий
