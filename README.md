@@ -16,17 +16,15 @@
 │   ├── versions/            # Папка с  миграциями  
 │   └── env.py               # Конфигурации Alembic  
 │  
-├── alembic.ini              # Файл конфигурации Alembic  
-├── start.sh                 #  Скрипт для запуска и миграций в DOker  
+├── alembic.ini              # Файл конфигурации Alembic   
 │── Dockerfile               #  Docker файл  
 │── docker-compose.yml       #  Docker compose  
 │── .env                     #  Файл с переменными окружения  
 │  
 ├── tests/                   # Тесты  
 │   │  
-│   ├── test_tables.py  
+│   ├── test_desks.py  
 │   └── test_reservation.py  
-
 └── requirements.txt         # Список зависимостей  
 
 ## Запуск из виртуальной среды
